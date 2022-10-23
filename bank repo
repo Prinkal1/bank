@@ -1,0 +1,113 @@
+#include <iostream>
+#include <math.h>
+using namespace std;
+class account
+{
+public:
+    char name[40];
+    int acc_no[20];
+    int acc_type;
+    void setdata()
+    {
+        cout << "Enter your name\n";
+        gets(name);
+        cout << "enter account number\n";
+        cin >> acc_no[20];
+        cout << "enter account type\n";
+    }
+    void setdata2()
+    {
+        cout << "enter 1 for current account and 2 for saving account\n";
+        cin >> acc_type;
+    }
+};
+class cur_acct : public account
+{
+public:
+    int bal;
+    char check;
+    void checkdata1()
+    {
+            cout << "enter your balance : ";
+            cin >> bal;
+            if (bal >= 500)
+            {
+                cout << "your  balance is " << bal;
+            }
+            else
+            {
+                cout << "your balance is less than min balance\n";
+                cout << "so u have to pay charge of rs 100\n";
+                cout << "so your balance is " << bal - 100;
+            }
+            cout << "\nyou want checkbook?\n";
+            cin >> check;
+        
+    }
+};
+class sav_acct : public account
+{
+public:
+    double bal, new_bal;
+    int time;
+    float rate = 5;
+    void checkdata2()
+    {
+            cout << "enter your balance : ";
+            cin >> bal;
+            cout << "enter the time period :";
+            cin >> time;
+            cout << "rate is 5% that is 0.05\n";
+            new_bal = bal * pow((1 + rate / 100), time);
+            cout << "your total balance is : " << new_bal << endl;
+            cout << "compound interest is : " << new_bal - bal << endl;
+        
+    }
+    void withdrawl()
+    {
+        int check, money;
+        int money_withrawl;
+        cout << "you want to withdrawl money ?\n";
+        cout << "click 1 to withrawl and 2 to not : \n";
+        cin >> money;
+        if (money == 1)
+        {
+            cout << "click 1 to withrawl money cash and 2 by checkbook : \n";
+            cin >> check;
+            if (check == 1)
+            {
+                cout << "your balance is : " << new_bal;
+                cout << "\nhow much money you want to withdrawl : \n";
+                cin >> money_withrawl;
+                cout << "now your balance is : " << new_bal - money_withrawl << endl;
+                cout << "hope you like our service";
+            }
+            else
+            {
+                cout << "checkbook facilites is not available\n";
+                cout << "your balance is : " << new_bal;
+                cout << "hope you like our service";
+            }
+        }
+    }
+};
+int main()
+{
+    int acc_type;
+    account obj;
+    obj.setdata();
+    cout << "enter 1 for current account and 2 for saving account\n";
+    cin >> acc_type;
+    if (acc_type == 1)
+    {
+        cur_acct obj1;
+        obj1.checkdata1();
+    }
+    else
+    {
+        sav_acct obj2;
+        obj2.checkdata2();
+        obj2.withdrawl();
+    }
+    return 0;
+}
